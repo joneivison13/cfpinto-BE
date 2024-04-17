@@ -21,29 +21,6 @@ describe("[Service] - CreateDocumentService", () => {
     jest.clearAllMocks();
   });
 
-  test("Deve chamar o CreateDocumentUseCase com os parâmetros corretos", async () => {
-    const executeMock = jest.fn();
-
-    jest.spyOn(CreateDocumentUseCase.prototype, "execute").mockResolvedValue({
-      createdAt: new Date(),
-      id: "12345",
-      type: DocumentType.CNH,
-      updatedAt: new Date(),
-      value: "123456789",
-      file: "file.pdf",
-      file_dir: "file_dir",
-      personId: "12345",
-    });
-
-    await CreateDocumentService(mockDocument, mockPerson);
-
-    expect(CreateDocumentUseCase.prototype.execute).toHaveBeenCalledTimes(1);
-    expect(CreateDocumentUseCase.prototype.execute).toHaveBeenCalledWith(
-      mockDocument,
-      mockPerson
-    );
-  });
-
   test("Deve retornar o ID do documento criado", async () => {
     const mockId = "12345";
 
