@@ -1,3 +1,4 @@
+import { Database } from "../infra/database";
 import { PersonSchema } from "../schemas/person";
 import CreatePersonUseCase from "../use_cases/CreatePersonUseCase";
 import GetAllPeopleUseCase from "../use_cases/GetAllPeopleUseCase";
@@ -29,6 +30,18 @@ export async function GetPersonByIdService(id: string) {
   try {
     const getPersonByIdUseCase = new GetPersonByIdUseCase();
     return await getPersonByIdUseCase.execute(id);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function UpdatePersonById(data: PersonSchema, id: string) {
+  try {
+    const updatedPerson = await Database.person.update({
+      where: { id },
+      data,
+    });
+    return updatedPerson;
   } catch (error) {
     throw error;
   }

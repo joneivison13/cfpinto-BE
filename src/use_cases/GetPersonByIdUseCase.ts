@@ -18,6 +18,7 @@ export default class GetPersonByIdUseCase {
               file: true,
               file_dir: false,
               value: true,
+              type: true,
             },
           },
           document: true,
