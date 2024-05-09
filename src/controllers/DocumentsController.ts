@@ -21,6 +21,10 @@ export default class DocumentsController {
           file: req.file?.path
             ? path.basename(req.file?.path as string)
             : undefined,
+          expCorp: data.expCorp,
+          expDate: new Date(data.expDate),
+          expedit: new Date(data.expedit),
+          typeId: data.typeId,
         },
         data.person
       );
@@ -60,5 +64,11 @@ export default class DocumentsController {
     } catch (error) {
       next(error);
     }
+  }
+
+  async getTypes(req: Request, res: Response, next: NextFunction) {
+    const all_types = await Database.documentType.findMany();
+
+    return res.json({ data: all_types });
   }
 }

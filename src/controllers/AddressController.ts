@@ -14,6 +14,11 @@ export default class AddressController {
           street: data.street,
           city: data.city,
           state: data.state,
+          country: data.country,
+          main: data.main,
+          neighborhood: data.neighborhood,
+          number: data.number,
+          postal_code: data.postal_code,
         },
         data.person
       );

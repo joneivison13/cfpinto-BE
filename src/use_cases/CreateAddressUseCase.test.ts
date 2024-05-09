@@ -20,6 +20,11 @@ describe("[UseCase] - CreateAddressUseCase", () => {
       city: "city",
       state: "state",
       street: "street",
+      main: true,
+      neighborhood: "neighborhood",
+      postal_code: "postal_code",
+      number: "1",
+      country: "country",
     };
     const personId = "personId";
 
@@ -29,6 +34,14 @@ describe("[UseCase] - CreateAddressUseCase", () => {
       createdAt: new Date(),
       personId,
       updatedAt: new Date(),
+      city: "city",
+      state: "state",
+      street: "street",
+      country: "country",
+      main: true,
+      neighborhood: "neighborhood",
+      postal_code: "postal_code",
+      number: "1",
     });
 
     // Act
@@ -43,6 +56,11 @@ describe("[UseCase] - CreateAddressUseCase", () => {
       createdAt: expect.any(Date),
       personId,
       updatedAt: expect.any(Date),
+      country: "country",
+      main: true,
+      neighborhood: "neighborhood",
+      postal_code: "postal_code",
+      number: "1",
     });
     expect(Database.address.create).toHaveBeenCalledWith({
       data: { ...address, person: { connect: { id: personId } } },
@@ -55,6 +73,11 @@ describe("[UseCase] - CreateAddressUseCase", () => {
       city: "city",
       state: "state",
       street: "street",
+      main: true,
+      neighborhood: "neighborhood",
+      postal_code: "postal_code",
+      number: "1",
+      country: "country",
     };
     const personId = "personId";
 
@@ -77,6 +100,11 @@ describe("[UseCase] - CreateAddressUseCase", () => {
         city: "city",
         state: "state",
         street: "street",
+        main: true,
+        neighborhood: "neighborhood",
+        postal_code: "postal_code",
+        number: "1",
+        country: "country",
       };
       const personId = "personId";
 

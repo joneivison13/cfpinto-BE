@@ -6,6 +6,12 @@ export default class CreatePersonUseCase {
   async execute(data: PersonSchema) {
     try {
       personSchema.parse(data);
+      console.log({
+        data: {
+          ...data,
+          birthDate: new Date(data.birthDate),
+        },
+      });
       const new_person = await Database.person.create({
         data: {
           ...data,

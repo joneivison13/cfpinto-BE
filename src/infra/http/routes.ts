@@ -6,6 +6,7 @@ import upload from "./middlewares/file_upload";
 import DocumentsController from "../../controllers/DocumentsController";
 import AddressController from "../../controllers/AddressController";
 import AuthMiddeleware from "./middlewares/auth";
+import FileController from "../../controllers/FileController";
 
 const router = express.Router();
 
@@ -60,6 +61,7 @@ router.delete(
   new AuthMiddeleware().handle,
   new DocumentsController().delete
 );
+router.get("/document/type", new DocumentsController().getTypes);
 
 router.post(
   "/address/create",
@@ -71,6 +73,12 @@ router.delete(
   "/address/:id",
   new AuthMiddeleware().handle,
   new AddressController().delete
+);
+
+router.post(
+  "/file/create",
+  new AuthMiddeleware().handle,
+  new FileController().create
 );
 
 export { router };

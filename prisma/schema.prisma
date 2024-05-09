@@ -19,15 +19,23 @@ model Auth {
 }
 
 model Person {
-  id          String   @id @default(cuid())
-  name        String
-  nacionality String
-  document    String
-  birthDate   DateTime
-  gender      String
-  phone       String
-  telephone   String
-  is_client   Boolean  @default(false)
+  id              String   @id @default(cuid())
+  name            String
+  nacionality     String
+  document        String
+  birthDate       DateTime
+  gender          String
+  phone           String
+  telephone       String
+  is_client       Boolean  @default(false)
+  civil_state     String
+  profession      String
+  email           String
+  natural_city    String
+  natural_state   String
+  natural_country String
+  mother_name     String
+  father_name     String
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -36,10 +44,15 @@ model Person {
 }
 
 model Address {
-  id     String @id @default(cuid())
-  street String
-  city   String
-  state  String
+  id           String  @id @default(cuid())
+  street       String
+  city         String
+  state        String
+  main         Boolean @default(false)
+  number       String
+  neighborhood String
+  postal_code  String
+  country      String
 
   personId  String
   person    Person   @relation(fields: [personId], references: [id])
@@ -47,19 +60,24 @@ model Address {
   updatedAt DateTime @updatedAt
 }
 
-enum DocumentType {
-  RG
-  CNH
+model DocumentType {
+  id       String     @id @default(cuid())
+  name     String
+  Document Document[]
 }
 
 model Document {
   id       String       @id @default(cuid())
-  type     DocumentType
+  type     DocumentType @relation(fields: [typeId], references: [id])
+  typeId   String
   value    String
   file_dir String?
   file     String?
   personId String
   person   Person       @relation(fields: [personId], references: [id])
+  expedit  DateTime?
+  expDate  DateTime?
+  expCorp  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -5,6 +5,11 @@ const addressSchema = z
     street: z.string(),
     city: z.string(),
     state: z.string(),
+    main: z.boolean(),
+    number: z.string(),
+    neighborhood: z.string(),
+    postal_code: z.string(),
+    country: z.string(),
   })
   .strict();
 

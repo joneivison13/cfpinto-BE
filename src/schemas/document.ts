@@ -1,16 +1,15 @@
 import { z } from "zod";
 
-enum DocumentType {
-  RG = "RG",
-  CNH = "CNH",
-}
-
 const documentSchema = z
   .object({
-    type: z.nativeEnum(DocumentType),
+    type: z.any().optional(),
     value: z.string(),
     file_dir: z.string().optional(),
     file: z.string().optional(),
+    expedit: z.date().optional(),
+    expDate: z.date().optional(),
+    expCorp: z.string().optional(),
+    typeId: z.string().optional(),
   })
   .strict();
 

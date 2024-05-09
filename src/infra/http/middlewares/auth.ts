@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import AppError from "../../../utils/error";
 import AuthToken from "../../../services/jwt";
 import { Login } from "../../../services/LoginService";
+import logger from "../../../utils/logger";
 
 export default class AuthMiddeleware {
   async handle(req: Request, res: Response, next: NextFunction) {
@@ -23,6 +24,7 @@ export default class AuthMiddeleware {
       await Login({ email, password });
       next();
     } catch (error) {
+      logger.error(error);
       return res.status(401).json({ error: "access denied" });
     }
   }

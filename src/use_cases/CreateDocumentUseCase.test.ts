@@ -1,6 +1,6 @@
 import CreateDocumentUseCase from "../../src/use_cases/CreateDocumentUseCase";
 import { Database } from "../../src/infra/database";
-import documentSchema from "../../src/schemas/document";
+import documentSchema, { DocumentSchema } from "../../src/schemas/document";
 enum DocumentType {
   RG,
   CNH,
@@ -18,12 +18,16 @@ describe("[UseCase] - CreateDocumentUseCase", () => {
   });
 
   test("Deve criar um documento com sucesso", async () => {
+    const personId = "person-id";
     const document: any = {
       file_dir: "file-dir/aaa.a",
-      type: DocumentType.CNH,
       value: "123456789",
+      expCorp: "SSP",
+      expDate: new Date(),
+      expedit: new Date(),
+      file: "aaa.a",
+      type: "RG",
     };
-    const personId = "person-id";
 
     const createSpy = jest
       .spyOn(Database.document, "create")
@@ -39,6 +43,7 @@ describe("[UseCase] - CreateDocumentUseCase", () => {
         ...document,
         file: "aaa.a",
         person: { connect: { id: personId } },
+        type: { connect: { id: document.type } },
       },
     });
     expect(result).toEqual({ id: "document-id", ...document });
@@ -64,9 +69,14 @@ describe("[UseCase] - CreateDocumentUseCase", () => {
   });
 
   test("Deve lançar um erro quando a pessoa não for encontrada", async () => {
-    const document = {
-      title: "Test Document",
-      content: "Lorem ipsum dolor sit amet",
+    const document: DocumentSchema = {
+      file_dir: "file-dir/aaa.a",
+      value: "123456789",
+      expCorp: "SSP",
+      expDate: new Date(),
+      expedit: new Date(),
+      type: "RG",
+      file: "aaa.a",
     };
     const personId = "person-id";
 
@@ -74,12 +84,19 @@ describe("[UseCase] - CreateDocumentUseCase", () => {
       .spyOn(Database.document, "create")
       .mockRejectedValueOnce(new Error("Person not found"));
     jest.spyOn(documentSchema, "parse").mockReturnValueOnce(document as any);
+    jest
+      .spyOn(Database.documentType, "findMany")
+      .mockResolvedValueOnce([{ id: "RG", name: "RG" }] as any);
 
     await expect(
       createDocumentUseCase.execute(document as any, personId)
     ).rejects.toThrow("Person not found");
     expect(createSpy).toHaveBeenCalledWith({
-      data: { ...document, person: { connect: { id: personId } } },
+      data: {
+        ...document,
+        person: { connect: { id: personId } },
+        type: { connect: { id: document.type } },
+      },
     });
   });
 });

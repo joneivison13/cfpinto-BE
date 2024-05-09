@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Document" ALTER COLUMN "expDate" DROP NOT NULL,
+ALTER COLUMN "expedit" DROP NOT NULL,
+ALTER COLUMN "expCorp" DROP NOT NULL;

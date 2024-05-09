@@ -26,6 +26,14 @@ describe("[UseCase] - GetPersonByIdUseCase", () => {
       telephone: "987654321",
       updatedAt: new Date(),
       is_client: false,
+      civil_state: "single",
+      email: "user@user.com",
+      father_name: "Father Doe",
+      mother_name: "Mother Doe",
+      profession: "Developer",
+      natural_city: "City",
+      natural_country: "Country",
+      natural_state: "State",
     };
 
     const findUniqueSpy = jest
@@ -48,6 +56,15 @@ describe("[UseCase] - GetPersonByIdUseCase", () => {
             file: true,
             file_dir: false,
             value: true,
+            type: true,
+            createdAt: true,
+            updatedAt: true,
+            expCorp: true,
+            expDate: true,
+            expedit: true,
+          },
+          include: {
+            type: true,
           },
         },
         document: true,
@@ -58,6 +75,15 @@ describe("[UseCase] - GetPersonByIdUseCase", () => {
         phone: true,
         telephone: true,
         updatedAt: true,
+        civil_state: true,
+        email: true,
+        father_name: true,
+        mother_name: true,
+        profession: true,
+        is_client: true,
+        natural_city: true,
+        natural_country: true,
+        natural_state: true,
       },
     });
     expect(result).toEqual(expectedPerson);
